@@ -7,12 +7,8 @@ const router = express.Router();
 // require the dev model
 const DevModel = require('../models/Dev');
 
-router.get('/', (req, res) => {
-	res.send({type : 'GET'});
-})
 
-
-//create a new dev
+//CREATE DEV
 router.post('/create', (req, res) => {
 	console.log(req.body);
 	// res.send({type : 'POST'})
@@ -31,20 +27,45 @@ router.post('/create', (req, res) => {
 	// })
 })
 
-
-//delete a dev
-//localhost:3000/devs/:id
-router.delete('/:id', (req, res, next) => {
-	// res.send({type : 'DELETE'})
-
-	DevModel.deleteOne({_id : req.params.id })
-	.then(dev => {
-		res.send(dev)
-	}).catch(next)
+//RETRIEVE A DEV
+router.get('/', (req, res) => {
+	DevModel.find({}, (err, devs) => {
+		console.log(devs)
+		if (!err) {
+			return res.json({
+				'data' : {
+					'devs' : devs
+				}
+			})
+		} else {
+			console.log(err)
+		}
+	})
 })
 
-router.put('/:id', (req, res) => {
-	res.send({type : 'PUT'})
+
+//DELETE DEV
+//localhost:3000/devs/:id
+// router.delete('/:id', (req, res, next) => {
+// 	// res.send({type : 'DELETE'})
+
+// 	DevModel.deleteOne({_id : req.params.id })
+// 	.then(dev => {
+// 		res.send(dev)
+// 	}).catch(next)
+// })
+
+
+//UPDATE DEV
+router.put('/:id', (req, res, next) => {
+	// res.send({type : 'PUT'})
+	DevModel.update({_id : req.params.id}, req.body)
+	.then( () => {
+		DevModel.findOne({_id : req.params.id})
+		.then(dev => {
+			res.send(dev)
+		})
+	}).catch(next)
 })
 
 

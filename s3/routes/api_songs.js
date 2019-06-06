@@ -28,14 +28,38 @@ router.post('/new', (req, res, next) => {
 	})
 })
 
-router.delete('/:id', (req, res) => {
-	res.send({type : 'DELETE'})
+// router.delete('/:id', (req, res) => {
+// 	res.send({type : 'DELETE'})
+// })
+
+
+
+router.put('/:id', (req, res, next) => {
+	// res.send({type : 'PUT'})
+	SongModel.update({_id : req.params.id}, req.body)
+	.then( () => {
+		SongModel.findOne({_id : req.params.id})
+		.then(dev => {
+			res.send(dev)
+		})
+	}).catch(next)
 })
 
-router.put('/:id', (req, res) => {
-	res.send({type : 'PUT'})
+//RETRIEVE A DEV
+router.get('/all', (req, res) => {
+	SongModel.find({}, (err, songs) => {
+		console.log(songs)
+		if (!err) {
+			return res.json({
+				'collection' : {
+					'songs' : songs
+				}
+			})
+		} else {
+			console.log(err)
+		}
+	})
 })
-
 
 module.exports = router;
 
