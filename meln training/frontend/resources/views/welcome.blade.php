@@ -19,10 +19,10 @@
 		<h1 class="m-5">Create a new dev</h1>
 
 		<button class="btn btn-primary m-5" data-toggle="modal" data-target="#newDev">Create Dev</button>
-		<span id="success"></span>
+		<span id="success" class="alert"></span>
 
 		<button class="btn btn-success" data-toggle="modal" data-target="#newSong">New Song</button>
-		<span id="success"></span>
+		<span id="success" class="alert"></span>
 
 
 		<!-- create dev modal -->
@@ -141,7 +141,18 @@
 						'Content-Type' : 'application/json'
 					},
 					body : JSON.stringify(formData)
+				}).then(res=>res.json())
+				.then(res => {
+					// console.log(res)	
+					// add the class alert-success to #success
+					document.querySelector('#success').classList.add("alert-success")
+
+					document.querySelector('#success').innerHTML = "Successfully created " + res.title
+					//change the content of #success to print out "sucessfully created the dev (name of dev)"
+					// document.querySelector('#success').innnerHTML = "Successfully created" + res.name
 				})
+				.catch(error => console.error('Error:', error))
+
 			})
 
 			const urlSongs = 'http://localhost:3000/songs/all'
@@ -200,12 +211,13 @@
 				.then(res => {
 					// console.log(res)	
 					// add the class alert-success to #success
-					document.querySelector('#success').classList.add("alert-success", function() {
-						document.querySelector('#success').innerHTML = "Successfully created " + res.name
-					})
+					document.querySelector('#success').classList.add("alert-success")
+
+					document.querySelector('#success').innerHTML = "Successfully created " + res.name
 					//change the content of #success to print out "sucessfully created the dev (name of dev)"
 					// document.querySelector('#success').innnerHTML = "Successfully created" + res.name
 				})
+				.catch(error => console.error('Error:', error))
 
 			}) 
 
