@@ -10,7 +10,6 @@ const UserSchema = new Schema({
 	// name : String,
 	name : {
 		type : String,
-		required : true
 	},
 	// portfolio : String,
 	email : {

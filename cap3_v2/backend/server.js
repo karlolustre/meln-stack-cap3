@@ -32,7 +32,7 @@ mongoose.connection.once('open', () => {
 app.use(bodyParser.json());
 
 // tuitt dev routes
-const user = require('./routes/api/users_api.js');
+const user = require('./routes/api/users_api');
 app.use('/users', user);
 
 app.use( (err, req, res, next) => {

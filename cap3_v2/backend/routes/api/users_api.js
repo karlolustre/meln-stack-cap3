@@ -1,72 +1,53 @@
 // include the express framework
 const express = require('express');
-
-// include the Router used in the express framework
 const router = express.Router();
+// const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
-//require the dev model 
 const User = require('../../models/User');
 
-// router.get('/', (req, res) => {
-// 	res.send({type : 'GET'});
-// })
 
-//CREATE A NEW DEV
-router.post('/', (req, res, next) => {
-	console.log(req.body)
-	// res.send({type : 'POST'})
-	DevModel.create(req.body)
-	.then(dev => {
-		res.send(dev)
-	}).catch(next)
-
-	// res.send({
-	// 	type : "POST",
-	// 	name : req.body.name,
-	// 	portfolio : req.body.portfolio,
-	// 	hired : req.body.hired,
-	// 	batch : req.body.batch
-	// })
-
-})
-
-// RETRIEVE A DEV
-router.get('/', (req, res) => {
-	DevModel.find({}, (err, devs) => {
-		console.log(devs)
-		if(!err) {
-			return res.json({
-				'data' : {
-					'devs' : devs
-				}
-			})
+router.post('/signup', (req, res, next) => {
+	User.findOne({ email: req.body.email })
+	.exec()
+	.then(user => {
+		if(user) {
+			return res.status(409).json({
+				message: 'User Exists'
+			});
 		} else {
-			console.log(err)
+			bcrypt.hash(req.body.password, 10, (err, hash) => {
+			if(err) {
+				return res.status(500).json({
+					error:err
+				});
+			} else {
+				const user = new User({
+					email: req.body.email,
+					password: hash
+				});
+				user.save()
+				.then(result => {
+					console.log(result);
+					res.status(201).json({
+						message: 'User Created'
+					})
+				})
+				.catch(err => {
+					console.log(err);
+					res.status(500).json({
+						error:err
+					})
+				});		
+				}
+			});
+
 		}
 	})
-})
+	
+});
 
-//DELETE A DEV
-// localhost:3000/devs/:id
-router.delete('/:id', (req, res, next) => {
-	// res.send({type : 'DELETE'});
-	DevModel.deleteOne({_id : req.params.id })
-		.then(dev => {
-			res.send(dev)
-		}).catch(next)
-})
 
-//UPDATE A DEV
-router.put('/:devId', (req, res, next) => {
-	// res.send({type : 'PUT'});
-	DevModel.updateOne({_id : req.params.devId}, req.body)
-	.then( ()=> {
-		DevModel.findOne({_id : req.params.devId})
-			.then(dev => {
-				res.send(dev)
-			})
-	}).catch(next)
-})
 
 
 module.exports = router;
