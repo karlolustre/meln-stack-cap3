@@ -7,9 +7,6 @@ const router = express.Router();
 // require the dev model
 const SongModel = require('../models/Song');
 
-router.get('/', (req, res) => {
-	res.send({type : 'GET'});
-})
 
 router.post('/new', (req, res, next) => {
 	console.log(req.body);
