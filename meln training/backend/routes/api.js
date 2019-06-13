@@ -10,7 +10,7 @@ const DevModel = require('../models/Dev');
 
 //CREATE DEV
 router.post('/create', (req, res, next) => {
-	console.log(req.body);
+	// console.log(req.body);
 	// res.send({type : 'POST'})
 	
 	DevModel.create(req.body)
@@ -30,7 +30,7 @@ router.post('/create', (req, res, next) => {
 //RETRIEVE A DEV
 router.get('/', (req, res) => {
 	DevModel.find({}, (err, devs) => {
-		console.log(devs)
+		// console.log(devs)
 		if (!err) {
 			return res.json({
 				'data' : {
@@ -44,21 +44,38 @@ router.get('/', (req, res) => {
 })
 
 
-//DELETE DEV
-//localhost:3000/devs/:id
-// router.delete('/:id', (req, res, next) => {
-// 	// res.send({type : 'DELETE'})
+// DELETE DEV
+// localhost:3000/devs/:id
+router.delete('/delete', (req, res, next) => {
+	console.log(req.body)
+	res.send({type : 'DELETE'})
 
-// 	DevModel.deleteOne({_id : req.params.id })
-// 	.then(dev => {
-// 		res.send(dev)
-// 	}).catch(next)
-// })
+	DevModel.deleteOne({_id : req.body.id })
+	.then(dev => {
+		res.send(dev)
+	}).catch(next)
+})
 
+//RETRIEVE SINGLE DEV
+router.get('/:id', (req, res) => {
+	// console.log(req.params.id)
+	DevModel.findOne({'_id': req.params.id})
+	.then(dev => {
+		// console.log(dev)
+		if(dev) {
+			return res.json({
+				'data' : {
+					'dev' : dev
+				}
+			})
+		}
+	})
+})
 
-//UPDATE DEV
+//UPDATE ALL DEVS
 router.put('/:id', (req, res, next) => {
 	// res.send({type : 'PUT'})
+	// console.log(req.body)
 	DevModel.update({_id : req.params.id}, req.body)
 	.then( () => {
 		DevModel.findOne({_id : req.params.id})

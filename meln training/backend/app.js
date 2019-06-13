@@ -35,6 +35,9 @@ app.use('/devs', dev);
 const song = require('./routes/api_songs.js');
 app.use('/songs', song);
 
+const index = require('./routes/index.js');
+app.use('/', index);
+
 
 app.use((err, req, res, next) => {
 	res.status(422).send({error : err.message})

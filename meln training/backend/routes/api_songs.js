@@ -9,7 +9,7 @@ const SongModel = require('../models/Song');
 
 
 router.post('/new', (req, res, next) => {
-	console.log(req.body);
+	// console.log(req.body);
 	// res.send({type : 'POST'})
 	
 	SongModel.create(req.body)
@@ -29,8 +29,18 @@ router.post('/new', (req, res, next) => {
 // 	res.send({type : 'DELETE'})
 // })
 
+//retrieve single song
+// router get('/:id', (req, res, next) => {
+// 	SongModel.findOne({'_id' : req.params.id})
+// 	.then(song=> {
+// 		return song.json()
+// 	})
+	
+// })
 
 
+
+//update a Song
 router.put('/:id', (req, res, next) => {
 	// res.send({type : 'PUT'})
 	SongModel.update({_id : req.params.id}, req.body)
@@ -42,10 +52,10 @@ router.put('/:id', (req, res, next) => {
 	}).catch(next)
 })
 
-//RETRIEVE A DEV
+//RETRIEVE ALL DEV
 router.get('/all', (req, res) => {
 	SongModel.find({}, (err, songs) => {
-		console.log(songs)
+		// console.log(songs)
 		if (!err) {
 			return res.json({
 				'collection' : {
@@ -56,6 +66,18 @@ router.get('/all', (req, res) => {
 			console.log(err)
 		}
 	})
+})
+
+// DELETE DEV
+// localhost:3000/devs/:id
+router.delete('/delete', (req, res, next) => {
+	// console.log(req.body)
+	res.send({type : 'DELETE'})
+
+	SongModel.deleteOne({_id : req.body.id })
+	.then(song => {
+		res.send(song)
+	}).catch(next)
 })
 
 module.exports = router;

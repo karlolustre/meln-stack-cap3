@@ -93,6 +93,26 @@
 		  </div>
 		</div> <!-- end new song modal -->
 
+		<!-- edit modal -->
+		<div class="modal fade" tabindex="-1" role="dialog" id="editDevModal">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Edit Dev</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Please fill in the required fields</p>
+		        <form action="" id="editDev">
+				
+		        </form>
+		      </div>
+		    </div>
+		  </div>
+		</div> <!-- end new song modal -->
+
 
 		<!-- dev list -->
 		<div class="container">
@@ -171,17 +191,51 @@
 				let songGroups = ' ';
 
 				songs.map(song => {
-					console.log(song)
+					// console.log(song)
 					songGroups += `
 						<li class="card p-3 text-center">${song.title}
+						<button class="deleteButton" id="deleteButton" data-id="${song._id}">Delete</button>
+						<button class="editButton" id="editButton" data-id="${song._id}">Edit</button>
 						</li>
 					`
 				})
 				document.querySelector('#songList').innerHTML = songGroups;
 			})
 
+			//edit song 
+			document.querySelector('#songList').addEventListener('click', e => {
+				
+			})
 
-		
+
+			//delete song
+			document.querySelector('#songList').addEventListener('click', e => {
+				if (e.target.className === 'deleteButton') {
+					// console.log(e.target.dataset.id)
+	
+					if(!confirm ('are you sure?')){
+						return false
+					}
+
+					// console.log(e.target.parentNode)
+					e.target.parentNode.remove()
+					removeSong(e.target.dataset.id)
+				}
+			})
+			
+			function removeSong(id) {
+				// console.log(id)
+				fetch('http://localhost:3000/songs/delete', {
+					method: "DELETE",
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					body : JSON.stringify({id})
+				})
+			}
+
+
+
 
 			// create DEV
 			document.querySelector('#createButton').addEventListener("click", function(){
@@ -221,7 +275,7 @@
 
 			}) 
 
-
+			//retrieve DEV 
 			// document.querySelector('#devList').innerHTML= 'hello world';
 			const url = 'http://localhost:3000/devs/'
 			fetch(url, {
@@ -242,12 +296,110 @@
 					// console.log(dev)
 					devGroups += `
 						<li class="card p-3 text-center">${dev.name}
+						<button class="deleteButton" id="deleteButton" data-id="${dev._id}">Delete</button>
+						<button class="editButton" data-toggle="modal" data-target="#editDevModal" id="editButton" data-id="${dev._id}">Edit</button>
 						</li>
 					`
 				})
 				document.querySelector("#devList").innerHTML = devGroups;
 
 			})
+
+			//edit a dev
+			//receive the specific dev details for the modal
+			document.querySelector('#devList').addEventListener('click', e => {
+				if(e.target.className === 'editButton') {
+					// console.log('this is the id: ' + e.target.dataset.id)
+					let editId = e.target.dataset.id
+
+					fetch('http://localhost:3000/devs/' +editId)
+					.then(res => {
+						return res.json()
+					})
+					.then(data => {
+						// console.log(data.data.dev)
+						const dev = data.data.dev
+						// console.log(dev)
+
+						let devDetails = ' ';
+
+						devDetails += `
+							{{ csrf_field() }}
+							
+							<input id="editId" type="hidden" data-id="${dev._id}  class="form-control" name="id" placeholder="title">
+							<input id="editName" type="text" data-id="${dev._id}"" id="title" class="form-control" name="name" placeholder="${dev.name}">
+							<input id="editPortfolio" type="text" data-id="${dev._id}""  class="form-control" name="portfolio" placeholder="${dev.portfolio}">
+							<input id="editBatch" type="number" data-id="${dev._id}"" id="title" class="form-control" name="batch" placeholder="${dev.batch}">
+							<button id="" class="editSub" data-dismiss="modal">Submit</button>
+						`
+						document.querySelector('#editDev').innerHTML = devDetails
+					})
+
+
+				}
+			})
+
+			document.querySelector("#editDev").addEventListener("click", e => {
+				if(e.target.className === "editSub") {
+					let name = document.querySelector('#editName').value
+					// console.log(name)
+					let portfolio = document.querySelector('#editPortfolio').value
+					// console.log(portfolio)
+					let batch = document.querySelector('#editBatch').value
+					// console.log(batch)
+
+					let formData = new FormData()
+
+					formData.name = name
+					formData.portfolio = portfolio
+					formData.batch = batch
+
+					// console.log(formData)\
+					let editId = document.querySelector('#editId').dataset.id
+					// console.log(editId)
+
+
+					// console.log(e.target.parentNode.firstElementChild.nextElementSibling.dataset.id)
+
+					fetch('http://localhost:3000/devs/'+editId, {
+						method : "PUT",
+						headers : {
+							'Content-Type' : 'application/json'
+						},
+						body : JSON.stringify(formData)
+					})
+					
+				}
+			})
+
+
+
+			//delete Dev
+			document.querySelector('#devList').addEventListener('click', e => {
+				if (e.target.className === 'deleteButton') {
+					// console.log(e.target.dataset.id)
+	
+					if(!confirm ('are you sure?')){
+						return false
+					}
+
+					// let element = e.target.dataset.id
+					// console.log(e.target.parentNode)
+					e.target.parentNode.remove()
+					removeDev(e.target.dataset.id)
+				}
+			})
+
+			function removeDev(id) {
+				// console.log(id)
+				fetch('http://localhost:3000/devs/delete', {
+					method: "DELETE",
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					body : JSON.stringify({id})
+				})
+			}
 
 
 		</script>
