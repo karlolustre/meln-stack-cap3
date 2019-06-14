@@ -16,6 +16,29 @@
     </head>
 
 	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <a class="navbar-brand" href="#">Navbar</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		    <ul class="navbar-nav">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		    </ul>
+		    <ul class="navbar-nav ml-auto">
+		      <li class="nav-item">
+		 		<a class="nav-link" href="{{ url('register') }}">Register</a>
+		      </li>
+		      <li class="nav-item">
+		 		<a class="nav-link" href="{{ url('login') }}">Login</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
+
+
 		<h1 class="m-5">Create a new dev</h1>
 
 		<button class="btn btn-primary m-5" data-toggle="modal" data-target="#newDev">Create Dev</button>
@@ -23,7 +46,9 @@
 
 		<button class="btn btn-success" data-toggle="modal" data-target="#newSong">New Song</button>
 		<span id="success" class="alert"></span>
-
+		
+		<!-- logout -->
+		<button id="logoutButton" class="btn btn-danger">logout</button>
 
 		<!-- create dev modal -->
 		<div class="modal fade" tabindex="-1" role="dialog" id="newDev">
@@ -58,6 +83,38 @@
 		    </div>
 		  </div>
 		</div> <!-- end new dev modal -->
+
+		<!-- register modal -->
+		<div class="modal fade" tabindex="-1" role="dialog" id="register">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Create Account</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Please fill in the required fields</p>
+		        <form action="" id="newRegister">
+		        	@csrf
+		        	<div class="form-group">
+			        	<label for="email">Email: </label>
+			        	<input type="text" id="email" class="form-control" name="email" placeholder="sample@email.com">
+		        	</div>
+		        	<div class="form-group">
+			        	<label for="password">Password: </label>
+			        	<input type="password" id="password" class="form-control" name="password">
+		        	</div>
+
+		        	<button id="regButton" class="btn btn-success btn-block" data-dismiss="modal">Create</button>
+		        </form>
+		      </div>
+		    </div>
+		  </div>
+		</div> <!-- end register modal -->
+
+
 
 		<!-- new song modal -->
 		<div class="modal fade" tabindex="-1" role="dialog" id="newSong">
@@ -140,6 +197,32 @@
 
 		<!-- create new dev js -->
 		<script>
+			//create Account
+			document.querySelector('#regButton').addEventListener("click", () => {
+				let email = document.querySelector('#email').value;
+				let password = document.querySelector('#password').value;
+
+				let formData = new FormData()
+
+				formData.email = email
+				formData.password = password
+
+				fetch('http://localhost:3000/register', {
+					method : "POST",
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					body: JSON.stringify(formData)
+				}).then(res => res.json())
+				.then(res => {
+					console.log(res)
+				})
+				.catch(error => console.error('Error:', error))
+			})
+			
+
+
+
 			//create SONG
 			document.querySelector('#songCreate').addEventListener("click", function(){
 				let title = document.querySelector('#title').value;
@@ -277,11 +360,22 @@
 
 			//retrieve DEV 
 			// document.querySelector('#devList').innerHTML= 'hello world';
+			//create a token variable that will store value of key token 
+
+			const token = "Bearer "+localStorage.token
+			const email = localStorage.user
+			const isAdmin = localStorage.isAdmin
+
+			// console.log(token)
+			// console.log(email)
+			// console.log(isAdmin)
+
 			const url = 'http://localhost:3000/devs/'
 			fetch(url, {
 				method : 'GET',
 				headers : {
-					'Content-Type' : 'application/json'
+					'Content-Type' : 'application/json',
+					'Authorization' : token
 				}
 			})
 			.then(res=> {
@@ -400,6 +494,23 @@
 					body : JSON.stringify({id})
 				})
 			}
+
+			document.querySelector('#logoutButton').addEventListener('click', () => {
+				if (window.confirm('Are you sure you want to logout?')) {
+					fetch('http://localhost:3000/auth/logout')
+					.then((res) => { 
+						return res.json();
+					})
+					.then((data) => {
+						localStorage.clear()
+						window.location.replace('/')
+					})
+					.catch(function(err) {
+						console.log(err)
+					})
+
+				}
+			})
 
 
 		</script>

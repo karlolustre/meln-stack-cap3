@@ -43,7 +43,7 @@ router.post('/register', (req, res) => {
 					'email' : req.body.email,
 					'password' : hash
 				})
-				console.log(newUser)
+				// console.log(newUser)
 				newUser.save(err => {
 					if(!err) {
 						return res.json({

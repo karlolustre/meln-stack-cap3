@@ -4,6 +4,12 @@ const express = require('express');
 // instantiate an express app
 const app = express();
 
+//use passport for local auth
+const passport = require('passport')
+//include jwt for handling JSON web tokens
+const jwt = require('jsonwebtoken')
+
+
 //include cors package to allow cross-origin requests
 const cors = require('cors')
 
@@ -30,13 +36,16 @@ app.use(bodyParser.json());
 
 //tuitt dev routes
 const dev = require('./routes/api.js');
-app.use('/devs', dev);
+app.use('/devs', passport.authenticate('jwt', {session: false}), dev);
 
 const song = require('./routes/api_songs.js');
 app.use('/songs', song);
 
 const index = require('./routes/index.js');
 app.use('/', index);
+
+const auth = require('./routes/auth.js');
+app.use('/auth', auth);
 
 
 app.use((err, req, res, next) => {
