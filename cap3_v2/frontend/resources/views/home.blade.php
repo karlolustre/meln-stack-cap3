@@ -12,7 +12,7 @@
 
 @section('content')
 
-
+<!-- jumbotron -->
 <div class="container-fluid p-0">
 	<div class="jumbotron jumbotron-fluid jumbo-land">
 	  <div class="container">
@@ -20,7 +20,41 @@
 	    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
 	  </div>
 	</div>
+</div><!--  end container -->
+
+<!-- expore -->
+<section class="container">
+	<h3>Explore Cherry Studios</h3>
+	<div class="row">
+		<div class="col-md-3 col-12 border">
+			<p>card 1</p>
+		</div>
+		<div class="col-md-3 col-12 border">
+			<p>card 2</p>
+		</div>
+		<div class="col-md-3 col-12 border">
+			<p>card 3</p>
+		</div>
+		<div class="col-md-3 col-12 border">
+			<p>card 4</p>
+		</div>
+	</div>
+	<h1>image here</h1>
+</section>
+
+<div class="container">
+	<h1>testimonials</h1>
+	<h1>Contact us</h1>	
 </div>
+
+<div>extend a footer here</div>
+
+
+
+
+
+
+
 
 
 

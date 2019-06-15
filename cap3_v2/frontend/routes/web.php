@@ -26,3 +26,21 @@ Route::get('/login', function() {
 Route::get('/register', function() {
     return view('register');
 });
+
+
+// admin
+Route::get('/admin_home', function() {
+    return view('./admin/admin_home');
+});
+
+Route::get('/admin_studios', function() {
+    return view('./admin/admin_studios');
+});
+
+Route::get('/admin_studios_create', function() {
+    return view('./admin/admin_studio_create');
+});
+
+// Route::get('/admin_studio_edit', function() {
+//     return view('./admin/admin_studio_edit');
+// });
