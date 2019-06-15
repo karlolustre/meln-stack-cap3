@@ -4,6 +4,12 @@ const express = require('express');
 // instantiate an express app
 const app = express();
 
+const passport = require('passport')
+
+const jwt = require('jsonwebtoken')
+
+require('./passport')
+
 //include cors package to allow cross-origin requests
 const cors = require('cors')
 
@@ -32,6 +38,11 @@ app.use(bodyParser.json());
 const studio = require('./routes/studio');
 app.use('/studio', studio);
 
+const index = require('./routes/index');
+app.use('/', index);
+
+const auth = require('./routes/auth');
+app.use('/auth', auth)
 
 app.use((err, req, res, next) => {
 	res.status(422).send({error : err.message})

@@ -22,7 +22,7 @@
 	</div>
 </div><!--  end container -->
 
-<!-- expore -->
+<!-- explore -->
 <section class="container">
 	<h3>Explore Cherry Studios</h3>
 	<div class="row">

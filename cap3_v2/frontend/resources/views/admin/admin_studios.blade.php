@@ -114,7 +114,6 @@
 						studioDetails += `
 							{{ csrf_field() }}
 							
-						
 							<input type="hidden" data-id=${studio._id} id="editId"> 
 							<input id="editName" type="text" data-id="${studio._id}" id="name" class="form-control" name="name" placeholder="${studio.name}">
 							<input id="editDescription" type="text" data-id="${studio._id}""  class="form-control" name="description" placeholder="${studio.description}">
