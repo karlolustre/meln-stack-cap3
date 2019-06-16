@@ -41,6 +41,13 @@ Route::get('/admin_studios_create', function() {
     return view('./admin/admin_studio_create');
 });
 
+Route::get('/admin_members', function() {
+    return view('./admin/admin_members');
+});
+
+Route::get('/admin_member_create', function() {
+    return view('./admin/admin_member_create');
+});
 // Route::get('/admin_studio_edit', function() {
 //     return view('./admin/admin_studio_edit');
 // });

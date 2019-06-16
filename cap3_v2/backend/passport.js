@@ -19,20 +19,20 @@ passport.use( new LocalStrategy({ usernameField : 'email'}, (email, password, do
 	UserModel.findOne({ 'email' : email })
 
 	.then((user) => {
-		console.log(user)
+		// console.log(user)
 		if (!user) {
-			console.log('wrong user')
+			// console.log('wrong user')
 			return done(null, false, { message : 'Invalid Credentials' })
 		}
 		if (email == user.email) {
 			//check for the password hash compared to the stored password
-			console.log('email ok')
+			// console.log('email ok')
 			if (!bcrypt.compareSync(password, user.password)) {
-				console.log('password not working')
+				// console.log('password not working')
 				return done(null, false, { message : 'Invalid Credentials' })
 			}
 
-			console.log('hit success')
+			// console.log('hit success')
 			return done(null, user)
 		}
 		return done(null, false, { message: 'Invalid Credentials' })

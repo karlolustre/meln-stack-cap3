@@ -57,6 +57,66 @@ router.post('/register', (req, res) => {
 
 })
 
+//retrieve users
+
+router.get('/', (req, res) => {
+	UserModel.find({}, (err, user) => {
+		if (!err) {
+			return res.json({
+				'data' : {
+					'user' : user
+				}
+			})
+		} else {
+			console.log(err)
+		}
+	})
+})
+
+//UPDATE USERS
+//retrieve one user
+router.get('/:id', (req, res) => {
+	// console.log(req.params.id)
+	UserModel.findOne({ _id : req.params.id})
+	.then(user =>{
+		// console.log(studio)
+		if(user) {
+			return res.json({
+				'data' : {
+					'user' : user
+				}
+			})
+		}
+	})
+})
+
+router.put('/edit/:id', (req, res, next) => {
+	// console.log(req.body)
+	UserModel.updateOne({_id : req.params.id}, req.body)
+	.then( () => {
+		UserModel.findOne({_id : req.params.id})
+		.then(user => {
+			res.send(user)
+		})
+	}).catch(next)
+})
+
+
+
+
+//DELETE users
+router.delete('/delete', (req, res, next) => {
+	// console.log(req.body)
+	// res.send({type : 'DELETE'})
+
+	UserModel.deleteOne({_id : req.body.id })
+	.then(user => {
+		res.send(user)
+	}).catch(next)
+})
+
+
 module.exports = router;
+
 
 

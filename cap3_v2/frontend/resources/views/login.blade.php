@@ -58,6 +58,38 @@
 		</div> <!-- end row -->
 	</div> <!-- end container -->
 
+	<script>
+		document.querySelector('#loginButton').addEventListener('click', () => {
+			let email = document.querySelector('#email').value
+			let password = document.querySelector('#password').value
+
+			// console.log(email)
+			// console.log(password)
+
+			fetch('http://localhost:3000/auth/login', {
+				method : "POST",
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				body: JSON.stringify({
+					email : email,
+					password : password
+				})
+			})
+			.then(res => res.json())
+			.then(res => {
+				// console.log(res)
+				localStorage.setItem('token', res.data.token)
+				//store with value of login
+				localStorage.setItem('user', res.data.user.email)
+				localStorage.setItem('isAdmin', res.data.user.admin)
+
+				window.location = '/admin_studios'
+
+			})
+		})
+	</script>
+
 </body>
 
    <!-- jQuery library -->

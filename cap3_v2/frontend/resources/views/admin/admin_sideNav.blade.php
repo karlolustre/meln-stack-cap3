@@ -11,10 +11,10 @@
                         <a class="nav-link" href="{{ url('/admin_studios') }}">Studios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Members</a>
+                        <a class="nav-link" href="{{ url('/admin_members') }}">Members</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Store</a>
+                        <a class="nav-link" href="../home">Store</a>
                     </li>
                 </ul>
             </div>
