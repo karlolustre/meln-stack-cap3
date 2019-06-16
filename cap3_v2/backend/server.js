@@ -8,6 +8,8 @@ const passport = require('passport')
 
 const jwt = require('jsonwebtoken')
 
+const validator = require('express-validator');
+
 require('./passport')
 
 //include cors package to allow cross-origin requests
@@ -34,6 +36,8 @@ mongoose.connection.once('open', () => {
 // configure express/middleware to use the body parser package in retieving request bodies
 app.use(bodyParser.json());
 
+app.use(validator());
+
 // dev routes
 const studio = require('./routes/studio');
 app.use('/studio', studio);
@@ -44,8 +48,8 @@ app.use('/', index);
 const auth = require('./routes/auth');
 app.use('/auth', auth)
 
-const availability = require('./routes/availability');
-app.use('/availability', availability)
+const availabilities = require('./routes/availability');
+app.use('/availabilities', availabilities);
 
 app.use((err, req, res, next) => {
 	res.status(422).send({error : err.message})

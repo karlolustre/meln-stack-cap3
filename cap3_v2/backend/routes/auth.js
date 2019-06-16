@@ -13,8 +13,18 @@ const passport = require('passport')
 //load our custom passport module
 const appPassport = require('../passport')
 
+const { check, validationResult } = require('express-validator/check');
+
+
 //login user to the system
-router.post('/login', (req, res, next) => {
+router.post('/login', [
+	check('email').isEmail(),
+	check('password').isLength({ min: 8})
+	], (req, res, next) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(422).json({errors: errors.array()});
+		}
 	passport.authenticate('local', {session: false}, (err, user, info) => {
 		// if we're unable to validate, request is unauthorized
 		if(err || !user) {
@@ -44,6 +54,16 @@ router.post('/login', (req, res, next) => {
 		})
 
 	}) (req, res)
+})
+
+//logout
+router.get('/logout', (req ,res) => {
+	console.log('user is logged out')
+	req.logout()
+	res.json({
+		status : 'logout',
+		msg : 'please log in'
+	})
 })
 
 

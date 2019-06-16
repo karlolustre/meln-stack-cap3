@@ -15,7 +15,7 @@
 <!-- jumbotron -->
 <div class="container-fluid p-0">
 	<div class="jumbo-land">
-	    <a href="" class="btn btn-color">Book Now</a>
+	    <a href="{{ url('./studio') }}" class="btn btn-color">Book Now</a>
 	  </div>
 </div><!--  end container -->
 

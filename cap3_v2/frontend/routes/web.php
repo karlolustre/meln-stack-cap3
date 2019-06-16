@@ -36,8 +36,8 @@ Route::get('/bookings', function() {
     return view('./client/bookings');
 });
 
-Route::get('/availability', function() {
-    return view('./client/availability');
+Route::get('/availability/{$id}', function($id) {
+    return view('./client/availability', compact('id'));
 });
 
 

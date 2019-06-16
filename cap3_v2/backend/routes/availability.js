@@ -7,18 +7,21 @@ const AvailabilityModel = require('./../models/Availability');
 // Retrieve all availabilities 
 router.get('/', (req, res) => {
 
+	// Search for all the available bookings currently saved in the database
 	AvailabilityModel.find({}, (err, availabilities) => {
 
-		if (!err) {
-			return res.json({
-				'data' : {
-					'availabilities' : availabilities
-				}
-			})
-		} else {
-			console.log(err)
+		// If no bookings are available, return a successful request with info
+		if(!availabilities){
+			return res.status(200).json({ 
+				'info': 'No bookings available at the moment.',
+			});
 		}
-	})
+
+		// Return all availabilities found
+		return res.status(200).json({
+				'availabilities': availabilities,
+		});
+	});
 
 });
 
@@ -111,6 +114,7 @@ router.delete('/:id', (req,res) => {
 			});
 		});
 });
+
 
 
 module.exports = router;

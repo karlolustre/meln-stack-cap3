@@ -52,6 +52,7 @@
 </section>
 
 <script> 
+	
 
 	//retrieve studios
 	fetch('http://localhost:3000/studio', {
@@ -78,7 +79,7 @@
 					    <h6 class="card-subtitle mb-2 text-muted">Price : ${studio.price}</h6>
 					    <p class="card-text">${studio.description}</p>
 					    <a href="#" id="editButton" class="btn btn-primary" data-toggle="modal" data-target="#editStudioModal" data-id="${studio._id}">View Studio</a>
-					    <a href="#" id="deleteButton" class="btn btn-success" data-id="${studio._id}">Select Studio</a>
+					    <a href="#" id="selectStudio" class="btn btn-success" data-id="${studio._id}">Select Studio</a>
 					  </div>
 					</div>
 					
@@ -120,14 +121,21 @@
 							</div>
 							
 						
-							<button id="editSub" class="editSubmitButt btn btn-success btn-block" data-dismiss="modal">Select Studio</button>
+							<button id="selectStudio2" class="btn btn-success btn-block" data-dismiss="modal">Select Studio</button>
 						`
 						document.querySelector('#editStudio').innerHTML = studioDetails
 					})
-			}
+			} 
+			// if (e.target.id === 'selectStudio') {
+			// 	let availId = e.target.dataset.id
+
+			// 	window.location = ('/availability' +availId)
+
+			// }
+
 		})
 
-
+		
 
 </script>
 

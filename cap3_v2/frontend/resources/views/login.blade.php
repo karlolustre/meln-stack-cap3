@@ -60,6 +60,7 @@
 
 	<script>
 		document.querySelector('#loginButton').addEventListener('click', () => {
+			
 			let email = document.querySelector('#email').value
 			let password = document.querySelector('#password').value
 

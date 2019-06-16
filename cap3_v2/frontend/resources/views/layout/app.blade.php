@@ -62,7 +62,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="">User Account</a>
                         <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Logout</a>
+                            <a id="logoutButton" class="dropdown-item" href="#">Logout</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -84,6 +84,27 @@
             @yield('content')
         </main>
     </div>
+
+    <script>
+                document.querySelector('#logoutButton').addEventListener('click', () => {
+                // alert('hit');
+                if (window.confirm('Are you sure you want to logout?')) {
+                 fetch('http://localhost:3000/auth/logout')
+                 .then((res) => { 
+                     return res.json();
+                 })
+                 .then((data) => {
+                     localStorage.clear()
+                     window.location.replace('/home')
+                 })
+                 .catch(function(err) {
+                     console.log(err)
+                 })
+
+                }
+            })
+            
+    </script>
     
 
 </body>
