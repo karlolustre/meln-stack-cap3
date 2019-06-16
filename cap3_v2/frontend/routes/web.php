@@ -27,6 +27,19 @@ Route::get('/register', function() {
     return view('register');
 });
 
+//client
+Route::get('/studio', function() {
+    return view('./client/studio');
+});
+
+Route::get('/bookings', function() {
+    return view('./client/bookings');
+});
+
+Route::get('/availability', function() {
+    return view('./client/availability');
+});
+
 
 // admin
 Route::get('/admin_home', function() {
@@ -48,6 +61,13 @@ Route::get('/admin_members', function() {
 Route::get('/admin_member_create', function() {
     return view('./admin/admin_member_create');
 });
+
+Route::get('/admin_bookings', function() {
+    return view('./admin/admin_bookings');
+});
+
+
+
 // Route::get('/admin_studio_edit', function() {
 //     return view('./admin/admin_studio_edit');
 // });

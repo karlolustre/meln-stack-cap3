@@ -37,7 +37,7 @@
 			        <div id="newRegister">
 			        	<div class="form-group">
 				        	<label for="email">Email: </label>
-				        	<input type="text" id="email" class="form-control" name="email" placeholder="sample@email.com">
+				        	<input type="text" id="email" class="form-control" name="email">
 			        	</div>
 			        	<div class="form-group">
 				        	<label for="password">Password: </label>
@@ -84,7 +84,7 @@
 				localStorage.setItem('user', res.data.user.email)
 				localStorage.setItem('isAdmin', res.data.user.admin)
 
-				window.location = '/admin_studios'
+				window.location = '/home'
 
 			})
 		})

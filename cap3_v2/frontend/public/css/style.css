@@ -11,6 +11,58 @@
 	margin: 1rem;
 }
 
+/*navbar*/
+.nav-color {
+	background-color: #531024;
+}
+
+
+/*homepage*/
 .jumbo-land {
-	
+	background: linear-gradient(
+    rgba(0,0,0,0.5),
+    rgba(0,0,0,0.5)
+    ), url('../images/home.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 50vh;
+    text-align: center;
+
+}
+
+.btn-color {
+	background-color: #d3d3d3;
+	margin-top: 7rem;
+	width: 20%;
+}
+
+/*cards */
+span{
+    font-size:15px;
+}
+
+.card-link {
+  text-decoration: none; 
+  color: #0062cc;
+  border-bottom:2px solid #0062cc;
+}
+
+.box{
+    padding:60px 0px;
+}
+
+.box-part{
+    background:#721121;
+    border-radius:0;
+    padding:60px 10px;
+    margin:30px 0px;
+    color: #f2f2f2;
+    border-radius: 25px;
+}
+.text{
+    margin:20px 0px;
+}
+
+.fa{
+     color:#f2f2f2;
 }

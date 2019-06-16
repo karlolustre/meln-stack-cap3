@@ -76,10 +76,8 @@
 			body: JSON.stringify(formData)
 		}).then(res => res.json())
 		.then(data => {
-			// console.log(data)
 			window.location = ('/home');
 		})
-
 		.catch(error => console.error('Error:', error))
 
 

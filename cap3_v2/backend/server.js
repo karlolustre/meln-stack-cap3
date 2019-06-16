@@ -44,6 +44,9 @@ app.use('/', index);
 const auth = require('./routes/auth');
 app.use('/auth', auth)
 
+const availability = require('./routes/availability');
+app.use('/availability', availability)
+
 app.use((err, req, res, next) => {
 	res.status(422).send({error : err.message})
 })
