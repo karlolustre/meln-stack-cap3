@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-2 border">
+		<div class="col-md-2 border-right">
 			@include('admin.admin_sideNav')			
 		</div>
 		<!-- end sidenav -->
@@ -12,16 +12,30 @@
 		<!-- start content -->
 		<div class="col-md-9 border">
 			<div class="row">
-				<div class="col-md-12 border">
-					<p class="text-center">Studio</p>
-					<ul id="studioList">
-						
-					</ul>
-					<button id="addStudioButton" class="btn btn-primary">Add Studio</button>
+				<div class="col-md-12 col-12">
+					<h3 class="text-center m-2">Studios</h3>
+						<table class="table table-striped">
+		       				<thead>
+					            <tr>
+					                <th scope="col">Name</th>
+					                <th scope="col">Description</th>
+					                <th scope="col">Price</th>
+					                <th scope="col">Qty</th>
+					                <th scope="col">Status</th>
+					                <th scope="col"></th>
+					                <th scope="col"></th>
+					            </tr>
+					        </thead>
+					        <tbody id="studioList"></tbody>
+					    </table>	
+					<button id="addStudioButton" class="btn btn-primary m-2">Add Studio</button>
 				</div>
 			</div> <!-- end nested row -->
 		</div>
 	</div> <!-- end row -->
+
+	
+
 
 
 	<!-- edit modal -->
@@ -71,17 +85,20 @@
 			let studioList = ' ';
 
 			studio.map(studio => {
-				// console.log(studio)
+				console.log(studio)
 				studioList += `
-					<div class="card">
-					  <div class="card-body">
-					    <h5 class="card-title">${studio.name}</h5>
-					    <h6 class="card-subtitle mb-2 text-muted">Price : ${studio.price}</h6>
-					    <p class="card-text">${studio.description}</p>
-					    <a href="#" id="editButton" class="btn btn-primary" data-toggle="modal" data-target="#editStudioModal" data-id="${studio._id}">Edit</a>
-					    <a href="#" id="deleteButton" class="btn btn-danger" data-id="${studio._id}">Delete</a>
-					  </div>
-					</div>
+					<tr>
+	                    <td>${studio.name}</td>
+	                    <td>${studio.description}</td>
+	                    <td>${studio.price}</td>
+	                    <td>${studio.seats}</td>
+	                    <td>${studio.isActive}</td>
+					    <td><a href="#" id="editButton" class="btn btn-primary" data-toggle="modal" data-target="#editStudioModal" data-id="${studio._id}">Edit</a>
+					    </td>
+					    <td><a href="#" id="deleteButton" class="btn btn-danger" data-id="${studio._id}">Delete</a>
+					    </td
+
+                	</tr>
 					
 				`				
 			})

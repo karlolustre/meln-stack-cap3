@@ -32,9 +32,9 @@ Route::get('/studio', function() {
     return view('./client/studio');
 });
 
-Route::get('/bookings', function() {
-    return view('./client/bookings');
-});
+// Route::get('/bookings', function() {
+//     return view('./client/bookings');
+// });
 
 Route::get('/availability/{id}', function($id) {
     return view('./client/availability', compact('id'));

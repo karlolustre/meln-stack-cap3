@@ -72,7 +72,7 @@
                         <a href="{{ url('/register') }}" class="nav-link">Register</a>
                     </li>
                      <li class="nav-item">
-                        <a href="{{ url('/bookings') }}" class="nav-link">My Bookings</a>
+                        <a href="{{ url('/transactions') }}" class="nav-link">My Bookings</a>
                     </li>
                 </ul>
                 

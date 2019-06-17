@@ -13,7 +13,7 @@ const TransactionSchema = new Schema({
     status: {type: String, default: "booked"},
     date: {
     	type: String,
-    	require
+    	required: true,
     }
 });
 

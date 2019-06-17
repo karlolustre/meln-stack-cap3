@@ -72,7 +72,6 @@
 
             //create a resource request object through the Request() constructor
             let clientReq = new Request('http://localhost:3000/transactions/', initObject);
-            console.log('hit')
 
             //use above request object as the argument for our fetch request
             fetch(clientReq).then(function(response) {

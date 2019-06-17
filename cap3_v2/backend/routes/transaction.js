@@ -4,6 +4,12 @@ const express = require('express');
 // Include the router used in express
 const router = express.Router();
 
+const passport = require('passport')
+
+const jwt = require('jsonwebtoken')
+
+const validator = require('express-validator');
+
 // Include the Transaction Model
 const TransactionModel = require('./../models/Transaction');
 
@@ -21,6 +27,8 @@ const StudioModel = require('../models/Studio');
 
 //include the User model
 const UserModel = require('../models/User');
+
+
 
 // Create a POST route for purchases
 router.post('/', (req, res) => {
@@ -193,35 +201,35 @@ router.get('/all', (req, res) => {
 });
 
 // Retrieve all transactions of the logged in user
-router.get('/:id', (req, res) => {
-	//Find user email based on the user ID taken from URL
-	
-	UserModel.findOne({'_id': req.params.id}).then( (user) => {
-		if(!user){
-			return res.status(200).json({
-				'message': 'No user found'
-			});
-		}
-
-		let email = user.email;
-		//find all transactions of specified user
-		TransactionModel.find({'ownerEmail': email}).then( (transactions) => {
-			// If no transactions are found, 
-			if(!transactions){
-				return res.status(200).json({ 
-					'message': 'No transactions to show.'
+	router.get('/:id', (req, res) => {
+		//Find user email based on the user ID taken from URL
+		
+		UserModel.findOne({'_id': req.params.id}).then( (user) => {
+			if(!user){
+				return res.status(200).json({
+					'message': 'No user found'
 				});
 			}
 
-			// Return all transactions of the user in session
-			return res.status(200).json({ 
-				'data': {
-					'transactions': transactions
+			let email = user.email;
+			//find all transactions of specified user
+			TransactionModel.find({'ownerEmail': email}).then( (transactions) => {
+				// If no transactions are found, 
+				if(!transactions){
+					return res.status(200).json({ 
+						'message': 'No transactions to show.'
+					});
 				}
+
+				// Return all transactions of the user in session
+				return res.status(200).json({ 
+					'data': {
+						'transactions': transactions
+					}
+				});
 			});
 		});
 	});
-});
 
 //create a new transaction to reflect cancellation
 router.post('/:id', (req,res) => {
