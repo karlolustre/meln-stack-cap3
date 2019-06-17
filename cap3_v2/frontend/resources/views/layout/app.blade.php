@@ -49,7 +49,7 @@
                         <a class="nav-link" href="#">Clients</a>
                     </li>
                     <li class="nav-item ml-5">
-                        <a class="nav-link" href="#">Contact Us</a>
+                        <a class="nav-link" href="{{ url('/contact') }}">Contact Us</a>
                     </li>
                 </ul>
 

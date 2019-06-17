@@ -9,7 +9,7 @@
 <div class="container-fluid p-0">
 	<div class="jumbotron jumbotron-fluid jumbo-land">
 	  <div class="container">
-	    <h1 class="display-4">Hello! Let's Create Music</h1>
+	    <h1 class="display-4 text-light shadow-lg">Hello! Let's Create Music</h1>
 	    <p class="lead">Book a studio now!</p>
 	  </div>
 	</div>

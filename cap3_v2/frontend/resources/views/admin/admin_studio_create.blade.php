@@ -23,7 +23,7 @@
 							<label for="seats">Quantity: </label>
 							<input type="number" id="seats" class="form-control" name="seats">
 						</div>
-						<button id="" class="btn btn-primary">Back</button>
+						<a href="/admin_studios" class="btn btn-primary">Back</a>
 						<button id="addStudioButton" class="btn btn-primary">Add Studio</button>
 				</div>
 			</div>

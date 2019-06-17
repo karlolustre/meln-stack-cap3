@@ -51,6 +51,9 @@ app.use('/auth', auth);
 const transaction = require('./routes/transaction');
 app.use('/transactions', transaction);
 
+const contact = require('./routes/contact');
+app.use('/contact', contact);
+
 
 app.use((err, req, res, next) => {
 	res.status(422).send({error : err.message})
