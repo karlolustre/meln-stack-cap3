@@ -15,6 +15,10 @@ const StudioSchema = new Schema({
 		price: {
 			type: Number,
 			required: true
+		},
+		seats: Number,
+		isActive: {
+			type: Boolean, default: true
 		}
 })
 

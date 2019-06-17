@@ -72,60 +72,55 @@
 
 			studio.map(studio => {
 				// console.log(studio)
+				let itemId = studio._id
+				console.log(itemId)
+
 				studioList += `
 					<div class="card">
 					  <div class="card-body">
 					    <h5 class="card-title">${studio.name}</h5>
 					    <h6 class="card-subtitle mb-2 text-muted">Price : ${studio.price}</h6>
-					    <p class="card-text">${studio.description}</p>
+					    <p class="card-text">Description: ${studio.description}</p>
+					    <p class="card-text">Seats: ${studio.seats}</p>
 					    <a href="#" id="editButton" class="btn btn-primary" data-toggle="modal" data-target="#editStudioModal" data-id="${studio._id}">View Studio</a>
-					    <a href="#" id="selectStudio" class="btn btn-success" data-id="${studio._id}">Select Studio</a>
+					    <form action="/availability/${itemId} method="GET">
+					    {{ csrf_field() }}
+					    <input type="hidden" id="hiddenInput" data-id="${itemId}"></input>
+					    <button type="submit" id="selectStudio" class="btn btn-success" data-id="${studio._id}">Book Now</button>
+						</form>
 					  </div>
 					</div>
 					
 				`				
 			})
+
 			document.querySelector('#studioList').innerHTML = studioList
 
-		})
+			// if(studio.isActive == false) {
+   //                  document.getElementById(studio._id).disabled = true;
+   //                  document.getElementById(studio._id).innerHTML = "Unavailable";
+   //              } else {
+   //                  document.getElementById(studio._id).disabled = false;
+   //              }
+			})
+			
 
 		// retrieve single studio to view
-		document.querySelector('#studioList').addEventListener('click', (e) => {
-			// console.log(e.target.id)
+		// document.querySelector('#studioList').addEventListener('click', (e) => {
+		// 	// console.log(e.target.id)
 
-			if (e.target.id === 'editButton') {
+		// 	if (e.target.id === 'selectStudio') {
+		// 		// console.log('hit')
+		// 		let id = e.target.dataset.id
+		// 		// console.log(editId)
+			
+		// 		// window.location = ('/admin_studio_edit' +editId);
 
-				let editId = e.target.dataset.id
-				// console.log(editId)
-
-				// window.location = ('/admin_studio_edit' +editId);
-
-				fetch('http://localhost:3000/studio/' +editId)
-					.then(res => {
-						return res.json()
-					})
-					.then(data => {
-						// console.log(data)
-						const studio = data.data.studio
-						// console.log(studio)
-						let studioDetails = '';
-
-						studioDetails += `
-							<input type="hidden" data-id=${studio._id} id="editId"> 
-							<div class="card mb-2">
-							  <div class="card-body">
-							    <h5 class="card-title">${studio.name}</h5>
-							    <h6 class="card-subtitle mb-2 text-muted">Price : ${studio.price}</h6>
-							    <p class="card-text">${studio.description}</p>
-							  </div>
-							</div>
-							
-						
-							<button id="selectStudio2" class="btn btn-success btn-block" data-dismiss="modal">Select Studio</button>
-						`
-						document.querySelector('#editStudio').innerHTML = studioDetails
-					})
-			} 
+		// 		  if(localStorage.getItem('token')==null) {
+  //                       window.location.replace("/login");
+  //                   } else { 
+  //                       window.location.replace(`/availabilities/${id}`);
+  //                   }
 			// if (e.target.id === 'selectStudio') {
 			// 	let availId = e.target.dataset.id
 
@@ -133,7 +128,7 @@
 
 			// }
 
-		})
+		// })
 
 		
 
