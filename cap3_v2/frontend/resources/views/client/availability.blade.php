@@ -34,6 +34,7 @@
         })
         .then(function(data) {
             //dynamically fill in product info from API's response
+            console.log(data)
             document.getElementById("name").innerHTML = data.data.studio.name;
             document.getElementById("description").innerHTML = data.data.studio.description;
             document.getElementById("price").innerHTML = data.data.studio.price;

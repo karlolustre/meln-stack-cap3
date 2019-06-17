@@ -16,19 +16,13 @@
 </div><!--  end container -->
 
 <!-- explore -->
-<section class="container">
 	<!-- start content -->
-		<div class="col-md-9 border">
-			<div class="row">
-				<div class="col-md-12 border">
-					<p class="text-center">Studio</p>
-					<ul id="studioList">
-						
-					</ul>
-					
-				</div>
-			</div> <!-- end nested row -->
-		</div>
+		<div class="container-fluid">
+        <div class="row" id="products">
+            
+        </div>
+    </div>
+
 
 		<!-- view modal studio -->
 		<div class="modal fade" tabindex="-1" role="dialog" id="editStudioModal">
@@ -51,88 +45,62 @@
 		</div> <!-- end new song modal -->
 </section>
 
-<script> 
 	
 
-	//retrieve studios
-	fetch('http://localhost:3000/studio', {
-			method : "GET",
-			headers : {
-				'Content-Type' : 'application/json'
-			}
-		})
-		.then(res => {
-			return res.json()
-		})
-		.then(data => {
-			// console.log(data)
-			const studio = data.data.studio
-			
-			let studioList = ' ';
+	<!-- //retrieve studios -->
+	<script type="text/javascript">
+        fetch('http://localhost:3000/studio/').then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+        	// console.log(data)
+            let availabilities = data.data.studio;
+            availabilities.forEach(function(availability) {
+                document.getElementById("products").innerHTML += `
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" id="itemholder">
+                        <div class="card">
+                            <img class="card-img-top" src="http://lorempixel.com/400/200/sports" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">${availability.name}</h4>
+                                <p class="card-text">${availability.description}</p>
+                                <p class="card-text">Available seats: ${availability.seats}</p>
+                                <p class="card-text">Price per seat: PhP ${availability.price}</p>
+                                <button class="btn btn-primary book-btn" id="${availability._id}">Book now!</button>
+                                <div>
+                            </div>
+                        </div>
+                    </div>
+                `
+                if(availability.isActive == false) {
+                    document.getElementById(availability._id).disabled = true;
+                    document.getElementById(availability._id).innerHTML = "Unavailable";
+                } else {
+                    document.getElementById(availability._id).disabled = false;
+                }
+            });
 
-			studio.map(studio => {
-				// console.log(studio)
-				let itemId = studio._id
-				console.log(itemId)
+            //turn the book-btn class into an array
+            let buttons = document.querySelectorAll('.book-btn');
 
-				studioList += `
-					<div class="card">
-					  <div class="card-body">
-					    <h5 class="card-title">${studio.name}</h5>
-					    <h6 class="card-subtitle mb-2 text-muted">Price : ${studio.price}</h6>
-					    <p class="card-text">Description: ${studio.description}</p>
-					    <p class="card-text">Seats: ${studio.seats}</p>
-					    <a href="#" id="editButton" class="btn btn-primary" data-toggle="modal" data-target="#editStudioModal" data-id="${studio._id}">View Studio</a>
-					    <form action="/availability/${itemId} method="GET">
-					    {{ csrf_field() }}
-					    <input type="hidden" id="hiddenInput" data-id="${itemId}"></input>
-					    <button type="submit" id="selectStudio" class="btn btn-success" data-id="${studio._id}">Book Now</button>
-						</form>
-					  </div>
-					</div>
-					
-				`				
-			})
-
-			document.querySelector('#studioList').innerHTML = studioList
-
-			// if(studio.isActive == false) {
-   //                  document.getElementById(studio._id).disabled = true;
-   //                  document.getElementById(studio._id).innerHTML = "Unavailable";
-   //              } else {
-   //                  document.getElementById(studio._id).disabled = false;
-   //              }
-			})
-			
-
-		// retrieve single studio to view
-		// document.querySelector('#studioList').addEventListener('click', (e) => {
-		// 	// console.log(e.target.id)
-
-		// 	if (e.target.id === 'selectStudio') {
-		// 		// console.log('hit')
-		// 		let id = e.target.dataset.id
-		// 		// console.log(editId)
-			
-		// 		// window.location = ('/admin_studio_edit' +editId);
-
-		// 		  if(localStorage.getItem('token')==null) {
-  //                       window.location.replace("/login");
-  //                   } else { 
-  //                       window.location.replace(`/availabilities/${id}`);
-  //                   }
-			// if (e.target.id === 'selectStudio') {
-			// 	let availId = e.target.dataset.id
-
-			// 	window.location = ('/availability' +availId)
-
-			// }
-
-		// })
-
+            //loop through the buttons array to add an event listener and associate specific product id to each one
+            buttons.forEach(function(button) {
+                //add onclick event listener to every button
+                button.addEventListener('click', function() {
+                    let id = this.getAttribute('id')
+                    if(localStorage.getItem('token')==null) {
+                        window.location.replace("/login");
+                    } else { 
+                        window.location.replace(`/availability/${id}`);
+                    }
+                });
+            })
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+    </script>
 		
 
-</script>
 
 
 

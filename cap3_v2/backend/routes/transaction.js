@@ -31,8 +31,8 @@ router.post('/', (req, res) => {
 		let newTransaction = new TransactionModel({
 			'ownerEmail': req.body.email,
 			'availabilityId': req.body.id,
-			'quantity': req.body.quantity,
-			'amount' : req.body.quantity * availability.price,
+			'quantity': 1,
+			'amount' : availability.price,
 			'date' : moment().format('MMMM Do YYYY, h:mm:ss a') 
 		});
 
@@ -78,7 +78,7 @@ router.post('/', (req, res) => {
 
 		} else {
 			return res.json({
-						'message': 'insufficient seats for intended booking'
+						'message': 'insufficient studio for intended booking'
 					});
 		}
 	}).catch( err => {
