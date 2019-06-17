@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 
 app.use(validator());
 
-// dev routes
+//  routes
 const studio = require('./routes/studio');
 app.use('/studio', studio);
 
@@ -46,7 +46,10 @@ const index = require('./routes/index');
 app.use('/', index);
 
 const auth = require('./routes/auth');
-app.use('/auth', auth)
+app.use('/auth', auth);
+
+const transaction = require('./routes/transaction');
+app.use('/transactions', transaction);
 
 
 app.use((err, req, res, next) => {

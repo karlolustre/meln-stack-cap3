@@ -40,6 +40,10 @@ Route::get('/availability/{id}', function($id) {
     return view('./client/availability', compact('id'));
 });
 
+Route::get('/transactions/{id}', function($id) {
+    return view('./client/transaction', compact('id'));
+});
+
 
 // admin
 Route::get('/admin_home', function() {
