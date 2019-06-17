@@ -66,8 +66,8 @@ Route::get('/admin_member_create', function() {
     return view('./admin/admin_member_create');
 });
 
-Route::get('/admin_bookings', function() {
-    return view('./admin/admin_bookings');
+Route::get('/admin_transactions', function() {
+    return view('./admin/admin_transaction');
 });
 
 
