@@ -79,11 +79,12 @@
 			})
 			.then(res => res.json())
 			.then(res => {
-				// console.log(res)
+				console.log(res)
 				localStorage.setItem('token', res.data.token)
 				//store with value of login
 				localStorage.setItem('user', res.data.user.email)
 				localStorage.setItem('isAdmin', res.data.user.admin)
+				localStorage.setItem('id', res.data.user._id)
 
 				window.location = '/home'
 

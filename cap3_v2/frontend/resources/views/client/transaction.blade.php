@@ -4,20 +4,29 @@
 
 @section('content')
 
-<table class="table table-striped table-responsive">
-        <thead>
-            <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Transaction ID</th>
-                <th scope="col">Availability ID</th>
-                <th scope="col">Seats Booked</th>
-                <th scope="col">Total Amount</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody id="transactions"></tbody>
-    </table>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-12 mt-3">
+            <table class="table table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Transaction ID</th>
+                        <th scope="col">Availability ID</th>
+                        <th scope="col">Seats Booked</th>
+                        <th scope="col">Total Amount</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="transactions"></tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+
+
 
     <script type="text/javascript">
         fetch('http://localhost:3000/transactions/{{$id}}', {

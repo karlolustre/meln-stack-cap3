@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
         <div class="page-header">
-            <h2 id="productName"></h2>
+            <h2 id="name"></h2>
         </div>
         <p id="description"></p>
         <p id="seats"></p>
@@ -55,6 +55,7 @@
             jsonObject.id = "{{$id}}";
             //add user email to jsonObject
             jsonObject.email = localStorage.getItem('user');
+            jsonObject.userId = localStorage.getItem('id')
             console.log(JSON.stringify(jsonObject));
 
             //store all headers into a single variable
@@ -78,6 +79,7 @@
                 return response.json();
             })
             .then(function(response) {
+                window.location = ("/transactions/" + jsonObject.userId)
                 console.log(response);
             })
             .catch(function(err) {
