@@ -15,7 +15,7 @@
 				<div class="col-md-6 p-5 mx-auto">
 						<div class="form-group">
 							<label for="name">Name: </label>
-							<input type="text" id="name" class="form-control" name="name" placeholder="Studio Name" required>
+							<input type="text" id="name" class="form-control" name="name" placeholder="Studio Name" >
 							<span id="nameErr" class="alert"></span>
 
 							<label for="desc">Description: </label>
@@ -27,6 +27,7 @@
 						</div>
 						<a href="/admin_studios" class="btn btn-primary">Back</a>
 						<button id="addStudioButton" class="btn btn-primary">Add Studio</button>
+						<span id="success" class="alert"></span>
 				</div>
 			</div>
 		</div>
@@ -43,12 +44,8 @@
 			let price = document.querySelector('#price').value
 			let seats = document.querySelector('#seats').value
 
-			if (name.length < 10) {
-				document.querySelector('#nameErr').innerHTML = "Please input name"
-
-				return true
-
-			} else {
+		
+	
 					let formData = new FormData();
 
 					formData.name = name
@@ -64,22 +61,16 @@
 						body: JSON.stringify(formData)
 					}).then(res => res.json())
 					.then(res => {
-						console.log(res)
+
+
 					})
 					window.location = ('/admin_studios');
 
-			}
 
 
 
 
-
-
-
-
-
-		
-	})
+})
 
 
 

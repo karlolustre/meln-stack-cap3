@@ -4,16 +4,18 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-2 border">
+		<div class="col-md-2 border-right">
 			@include('admin.admin_sideNav')			
 		</div>
 		<!-- end sidenav -->
 
 		<!-- start content -->
-		<div class="col-md-9 border">
+		<div class="col-md-9">
 			<div class="row">
-				<div class="col-md-12 border">
+				<div class="col-md-12">
 					<p class="text-center">Members</p>
+					<div id="success" class="alert-success"></div>
+					<div id="deleteBanner" class="alert-danger"></div>
 					<ul id="userList">
 						
 					</ul>
@@ -29,7 +31,7 @@
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title">Edit User</h5>
+		        <h5 class="modal-title">Edit Member</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -77,9 +79,9 @@
 				userList += `
 					<div class="card">
 					  <div class="card-body">
-					    <h5 class="card-title">${user.email}</h5>
-					    <h6 class="card-subtitle mb-2 text-muted">Password : ${user.password}</h6>
-					    <p class="card-text">${user.admin}</p>
+					    <h5 class="card-title">Member email: ${user.email}</h5>
+					    
+					    <p class="card-text">Admin: ${user.admin}</p>
 					    <a href="#" id="editButton" class="btn btn-primary" data-toggle="modal" data-target="#editUserModal" data-id="${user._id}">Edit</a>
 					    <a href="#" id="deleteButton" class="btn btn-danger" data-id="${user._id}">Delete</a>
 					  </div>
@@ -118,17 +120,17 @@
 							
 							<input type="hidden" data-id=${user._id} id="editId"> 
 							
-							<input id="editEmail" type="text" data-id="${user._id}" id="email" class="form-control" name="email" placeholder="${user.email}">
+							<input id="editEmail" type="email" data-id="${user._id}" class="form-control" name="email" value="${user.email}">
 
-							<input id="editPassword" type="password" data-id="${user._id}""  class="form-control" name="password">
+							<input id="editPassword" type="hidden" data-id="${user._id}" class="form-control" name="password" value="${user.password}">
 
-							 <label for="admin">Admin</label>
-							    <select class="form-control" id="editAdmin" name="admin" data-id="${user._id} size="2">
+							 <label for="admin" class="mt-3">Admin</label>
+							    <select class="form-control " id="editAdmin" name="admin" data-id="${user._id} size="2">
 							      <option value="false">No</option>
 							      <option value="true">Yes</option>
 							    </select>
 								
-							<button id="editSub" class="editSubmitButt btn btn-primary btn-block" data-dismiss="modal">Save</button>
+							<button id="editSub" class="editSubmitButt btn btn-primary btn-block mt-3" data-dismiss="modal">Save</button>
 						`
 						document.querySelector('#editUser').innerHTML = userDetails
 					})
@@ -164,7 +166,10 @@
 					body : JSON.stringify(formData)
 				})
 				.then(res=> {
-					window.location= '/admin_members'
+					document.querySelector('#success').classList.add("alert-success")
+
+					document.querySelector('#success').innerHTML = "Successfully edited"
+					// window.location= '/admin_members'
 				})
 			}
 
@@ -194,6 +199,11 @@
 					},
 					body : JSON.stringify({id})
 				})
+
+			document.querySelector('#deleteBanner').classList.add("alert-danger")
+
+			document.querySelector('#deleteBanner').innerHTML = "User Deleted"
+			// window.location= '/admin_members'
 		}
 
 

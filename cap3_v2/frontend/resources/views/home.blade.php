@@ -2,7 +2,7 @@
 	<div class="d-flex bd-highlight">
   		<div class="p-2 bd-highlight align-self-center"><img class="cherry-size" src="http://www.myiconfinder.com/uploads/iconsets/256-256-4f10f0a44ac19c443d1f5b74184f15f5-cherry.png" alt=""> </div>
   		<div class="p-2 bd-highlight align-self-center"><h3 class="">Cherry Studios</h3></div>
-  		<div class="ml-auto p-2 bd-highlight align-self-center btn btn-outline-success">Book Now</div>
+  		<a class="ml-auto p-2 bd-highlight align-self-center btn btn-outline-success" href="{{ url('/studio') }}">Book Now</a>
 	</div>
 </header>
 

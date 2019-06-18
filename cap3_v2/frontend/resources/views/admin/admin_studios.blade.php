@@ -14,6 +14,7 @@
 			<div class="row">
 				<div class="col-md-12 col-12">
 					<h3 class="text-center m-2">Studios</h3>
+					<div id="success" class="alert-success"></div>
 						<table class="table table-striped">
 		       				<thead>
 					            <tr>
@@ -42,12 +43,11 @@
 	<div class="modal fade" tabindex="-1" role="dialog" id="editStudioModal">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title">Edit Dev</h5>
+		        <h5 class="text-center mt-3">Edit Studio Details</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
-		      </div>
+		   
 		      <div class="modal-body">
 		        <p>Please fill in the required fields</p>
 		        <form action="" id="editStudio">
@@ -87,6 +87,7 @@
 			studio.map(studio => {
 				console.log(studio)
 				studioList += `
+					
 					<tr>
 	                    <td>${studio.name}</td>
 	                    <td>${studio.description}</td>
@@ -129,13 +130,19 @@
 						let studioDetails = '';
 
 						studioDetails += `
+
 							{{ csrf_field() }}
 							
-							<input type="hidden" data-id=${studio._id} id="editId"> 
-							<input id="editName" type="text" data-id="${studio._id}" id="name" class="form-control" name="name" placeholder="${studio.name}">
-							<input id="editDescription" type="text" data-id="${studio._id}""  class="form-control" name="description" placeholder="${studio.description}">
-							<input id="editPrice" type="number" data-id="${studio._id}"" id="price" class="form-control" name="price" placeholder="${studio.price}">
-							<button id="editSub" class="editSubmitButt btn btn-primary btn-block" data-dismiss="modal">Save</button>
+							<form>
+								<input type="hidden" data-id=${studio._id} id="editId"> 
+								<label for="editName">Name :</label>
+								<input id="editName" type="text" data-id="${studio._id}" class="form-control" name="name" value="${studio.name}" required>
+								<label for="editDescription">Description :</label>
+								<input id="editDescription" type="text" data-id="${studio._id}"  class="form-control" name="description" value="${studio.description}">
+								<label for="editPrice">Price :</label>
+								<input id="editPrice" type="number" data-id="${studio._id}"" id="price" class="form-control" name="price" value="${studio.price}">
+								<button id="editSub" class="editSubmitButt btn btn-primary btn-block mt-3" data-dismiss="modal">Save</button>
+							</form>
 						`
 						document.querySelector('#editStudio').innerHTML = studioDetails
 					})
@@ -171,7 +178,11 @@
 					body : JSON.stringify(formData)
 				})
 				.then(res=> {
-					window.location= '/admin_studios'
+					// console.log(res)
+					document.querySelector('#success').classList.add("alert-success")
+
+					document.querySelector('#success').innerHTML = "Successfully edited"
+					// window.location= '/admin_studios'
 				})
 			}
 
@@ -204,6 +215,8 @@
 					},
 					body : JSON.stringify({id})
 				})
+
+				window.location= '/admin_studios'
 		}
 
 
