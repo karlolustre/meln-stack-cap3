@@ -95,7 +95,7 @@
 	                    <td>${studio.isActive}</td>
 					    <td><a href="#" id="editButton" class="btn btn-primary" data-toggle="modal" data-target="#editStudioModal" data-id="${studio._id}">Edit</a>
 					    </td>
-					    <td><a href="#" id="deleteButton" class="btn btn-danger" data-id="${studio._id}">Delete</a>
+					    <td><button id="deleteButton" class="btn btn-danger" data-id="${studio._id}">Delete</button>
 					    </td
 
                 	</tr>
